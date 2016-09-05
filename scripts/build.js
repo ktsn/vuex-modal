@@ -16,20 +16,26 @@ const banner = `/*!
 
 const moduleName = 'VuexModal'
 
+const globals = {
+  vue: 'Vue',
+  vuex: 'Vuex'
+}
+
 const config = {
   entry: 'src/index.js',
   plugins: [
     babel({
       exclude: 'node_modules/**'
     })
-  ]
+  ],
+  external: ['vue', 'vuex']
 }
 
 mkdirIfNotExists('dist')
 
 rollup(config)
   .then(bundle => {
-    return write(bundle, `dist/${meta.name}.common.js`, {
+    return write(bundle, `dist/${meta.name}.cjs.js`, {
       format: 'cjs',
       banner
     })
@@ -42,7 +48,8 @@ rollup(config)
   .then(bundle => write(bundle, `dist/${meta.name}.js`, {
     format: 'umd',
     banner,
-    moduleName
+    moduleName,
+    globals
   }))
   .then(() => rollup(addPlugins(config, [
     replace({
@@ -63,7 +70,8 @@ rollup(config)
   .then(bundle => write(bundle, `dist/${meta.name}.min.js`, {
     format: 'umd',
     banner,
-    moduleName
+    moduleName,
+    globals
   }))
   .catch(error => {
     console.error(error)

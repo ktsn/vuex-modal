@@ -10,7 +10,7 @@
     "Vuex"
   ],
   "license": "MIT",
-  "main": "dist/vuex-modal.common.js",
+  "main": "dist/vuex-modal.cjs.js",
   "files": [
     "dist"
   ],
