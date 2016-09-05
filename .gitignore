@@ -2,3 +2,4 @@ node_modules/
 
 /dist/
 /.tmp/
+/examples/*/__build__.js*
