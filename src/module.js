@@ -15,7 +15,7 @@ interface ModalState {
   nameIndex: string[];
 }
 
-interface Ctx extends ActionContext<ModalState> {}
+interface Ctx extends ActionContext<ModalState> {} // eslint-disable-line
 
 export default {
   state: ({

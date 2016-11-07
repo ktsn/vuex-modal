@@ -15,10 +15,10 @@ module.exports = {
       'vuex-modal': path.resolve(__dirname, '../src/index.js')
     },
     modules: ['node_modules'],
-    extensions: ['', '.js', '.vue']
+    extensions: ['.js', '.vue']
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.vue$/, loader: 'vue' },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
