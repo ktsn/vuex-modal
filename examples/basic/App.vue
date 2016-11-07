@@ -1,9 +1,11 @@
 <template>
   <div>
     <input type="checkbox" v-model="show">Show Modal
-    <modal class="basic-modal" :show="show">
-      <h1 class="title">Modal</h1>
-      <button class="button" type="button" @click="show = false">Close</button>
+    <modal :show="show">
+      <div class="basic-modal">
+        <h1 class="title">Modal</h1>
+        <button class="button" type="button" @click="show = false">Close</button>
+      </div>
     </modal>
   </div>
 </template>
@@ -23,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .basic-modal {
   margin: 30px auto;
   padding: 30px;

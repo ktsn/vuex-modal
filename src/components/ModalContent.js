@@ -1,4 +1,4 @@
-import { addStaticClass } from '../utils'
+import { addStaticClass, assert } from '../utils'
 
 export default {
   functional: true,
@@ -8,17 +8,26 @@ export default {
     contentTransition: Object
   },
 
-  render (h, { data, props, children }) {
+  render (h, { props, children }) {
     const { show, contentTransition } = props
+    const child = ensureOnlyChild(children)
 
-    addStaticClass(data, 'modal-content')
+    if (child == null) return
+
+    addStaticClass(child.data, 'modal-content')
 
     return (
       h('div', { staticClass: 'modal-content-wrapper' }, [
         h('transition', { props: contentTransition }, [
-          show && h('div', data, children)
+          show && child
         ])
       ])
     )
   }
+}
+
+function ensureOnlyChild (children) {
+  const domChildren = children.filter(c => c.tag)
+  assert(domChildren.length <= 1, 'Modal must have only one child')
+  return domChildren[0]
 }
