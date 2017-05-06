@@ -19,9 +19,9 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.vue$/, loader: 'vue' },
-      { test: /\.css$/, loader: 'style!css' },
-      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
+      { test: /\.vue$/, loader: 'vue-loader', options: { esModule: true }},
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
     ]
   },
   devtool: 'source-map',
