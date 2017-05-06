@@ -2,19 +2,40 @@ import Backdrop from './Backdrop'
 import ModalContent from './ModalContent'
 
 export default {
-  beforeMount () {
-    this._modal = this.$createElement()
-  },
-
   methods: {
-    update (data, children) {
-      this._modal = createModalVNode(this.$createElement, data, children)
-      this.$forceUpdate()
+    update (name, current, props, children) {
+      this._current = current
+      this._modals[name] = createModalVNode(
+        this.$createElement,
+        { props },
+        children
+      )
+
+      this.scheduleUpdate()
+    },
+
+    scheduleUpdate () {
+      if (this._scheduled) return
+      this._scheduled = true
+
+      this.$nextTick(() => {
+        this.$forceUpdate()
+        this._scheduled = false
+      })
+    },
+
+    unregister (name) {
+      this._modals[name] = undefined
     }
   },
 
-  render () {
-    return this._modal
+  beforeMount () {
+    this._current = null
+    this._modals = {}
+  },
+
+  render (h) {
+    return this._modals[this._current] || createModalVNode(h, {}, [])
   }
 }
 

@@ -1,24 +1,45 @@
 <template>
   <div>
-    <input type="checkbox" v-model="show">Show Modal
-    <modal :show="show">
+    <input type="radio" name="modal" value="foo" v-model="current">Show Foo
+    <input type="radio" name="modal" value="bar" v-model="current">Show Bar
+    <modal name="foo">
       <div class="basic-modal">
-        <h1 class="title">Modal</h1>
-        <button class="button" type="button" @click="show = false">Close</button>
+        <h1 class="title">Foo</h1>
+        <button class="button" type="button" @click="close">Close</button>
+      </div>
+    </modal>
+    <modal name="bar">
+      <div class="basic-modal">
+        <h1 class="title">Bar</h1>
+        <button class="button" type="button" @click="close">Close</button>
       </div>
     </modal>
   </div>
 </template>
 
 <script>
-import { Modal } from 'vuex-modal'
+import { mapActions } from 'vuex'
+import { Modal, PUSH, POP } from 'vuex-modal'
 
 export default {
-  data () {
-    return {
-      show: false
+  computed: {
+    current: {
+      get () {
+        const modal = this.$store.getters.currentModal
+        return modal && modal.name
+      },
+
+      set (value) {
+        this.open({ name: value })
+      }
     }
   },
+
+  methods: mapActions({
+    open: PUSH,
+    close: POP
+  }),
+
   components: {
     Modal
   }

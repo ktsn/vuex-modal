@@ -1,15 +1,12 @@
 import Vue from 'vue'
-
 import ModalPortal from './ModalPortal'
 
 const portal = new Vue(ModalPortal).$mount()
 
 export default {
-  functional: true,
-
   props: {
-    show: {
-      type: Boolean,
+    name: {
+      type: String,
       required: true
     },
     backdropTransition: {
@@ -26,12 +23,26 @@ export default {
     }
   },
 
-  render (h, { props, data, children }) {
-    if (props.show && !portal.$el.parentNode) {
+  computed: {
+    current () {
+      const modal = this.$store.getters.currentModal
+      return modal && modal.name
+    }
+  },
+
+  beforeDestroy () {
+    portal.unregister()
+  },
+
+  render () {
+    if (this.current && !portal.$el.parentNode) {
       document.body.appendChild(portal.$el)
     }
 
-    data.props = props
-    portal.update(data, children)
+    portal.update(this.name, this.current, {
+      show: this.name === this.current,
+      backdropTransition: this.backdropTransition,
+      contentTransition: this.contentTransition
+    }, this.$slots.default)
   }
 }
