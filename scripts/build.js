@@ -33,6 +33,10 @@ const config = {
 
 mkdirIfNotExists('dist')
 
+// Styles
+fs.writeFileSync('dist/vuex-modal.css', fs.readFileSync('src/style.css'))
+
+// Scripts
 rollup(config)
   .then(bundle => {
     return write(bundle, `dist/${meta.name}.cjs.js`, {
