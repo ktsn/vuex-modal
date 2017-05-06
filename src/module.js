@@ -3,8 +3,6 @@
 export const PUSH = 'modal/PUSH'
 export const POP = 'modal/POP'
 export const REPLACE = 'modal/REPLACE'
-export const REGISTER = 'modal/REGISTER'
-export const UNREGISTER = 'modal/UNREGISTER'
 
 interface ModalData {
   name: string;
@@ -12,15 +10,13 @@ interface ModalData {
 
 interface ModalState {
   stack: ModalData[];
-  nameIndex: string[];
 }
 
 interface Ctx extends ActionContext<ModalState> {} // eslint-disable-line
 
 export default {
-  state: ({
-    stack: [],
-    nameIndex: []
+  state: ({ // eslint-disable-line
+    stack: []
   }: ModalState),
 
   getters: {
@@ -40,14 +36,6 @@ export default {
 
     [REPLACE] ({ commit }: Ctx, data: ModalData) {
       commit(REPLACE, data)
-    },
-
-    [REGISTER] ({ commit }: Ctx, data: ModalData) {
-      commit(REGISTER, data)
-    },
-
-    [UNREGISTER] ({ commit }: Ctx, data: ModalData) {
-      commit(UNREGISTER, data)
     }
   },
 
@@ -63,14 +51,6 @@ export default {
     [REPLACE] ({ stack }: ModalState, data: ModalData): void {
       stack.pop()
       stack.push(data)
-    },
-
-    [REGISTER] ({ nameIndex }: ModalState, data: ModalData): void {
-      nameIndex.push(data.name)
-    },
-
-    [UNREGISTER] ({ nameIndex }: ModalState, data: ModalData): void {
-      nameIndex.splice(nameIndex.indexOf(data.name), 1)
     }
   }
 }
