@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ModalPortal from './ModalPortal'
+import { appendToBody } from '../dom'
 
 const portal = new Vue(ModalPortal).$mount()
 
@@ -36,7 +37,7 @@ export default {
 
   render () {
     if (this.current && !portal.$el.parentNode) {
-      document.body.appendChild(portal.$el)
+      appendToBody(portal.$el)
     }
 
     portal.update(this.name, this.current, {

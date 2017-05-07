@@ -1,5 +1,8 @@
 import Backdrop from './Backdrop'
 import ModalContent from './ModalContent'
+import { addDocumentClass, removeDocumentClass } from '../dom'
+
+const openClassBody = 'modal-open'
 
 export default {
   methods: {
@@ -35,6 +38,12 @@ export default {
   },
 
   render (h) {
+    if (this._current == null) {
+      removeDocumentClass(openClassBody)
+    } else {
+      addDocumentClass(openClassBody)
+    }
+
     return this._modals[this._current] || createModalVNode(h, {}, [])
   }
 }
