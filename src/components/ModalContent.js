@@ -1,6 +1,6 @@
 // @flow
 
-import { addStaticClass, assert } from '../utils'
+import { addStaticClass, onAfterLeave, assert } from '../utils'
 
 export default {
   functional: true,
@@ -11,7 +11,8 @@ export default {
     contentTransition: Object
   },
 
-  render (h: Function, { props, children }: any) {
+  render (h: Function, { props, data, children }: any) {
+    const listeners = data.on || {}
     const { show, contentTransition } = props
     const child = ensureOnlyChild(children)
 
@@ -19,9 +20,14 @@ export default {
       addStaticClass(child.data, 'modal-content')
     }
 
+    const transitionData = onAfterLeave(
+      { props: contentTransition },
+      listeners.leave
+    )
+
     return (
       h('div', { staticClass: 'modal-content-wrapper' }, [
-        h('transition', { props: contentTransition }, [
+        h('transition', transitionData, [
           show && child
         ])
       ])

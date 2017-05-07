@@ -12,6 +12,7 @@
     <modal name="bar">
       <div class="basic-modal">
         <h1 class="title">Bar</h1>
+        <button class="button" @click="open({ name: 'foo' })">Open Foo</button>
         <button class="button" type="button" @click="close">Close</button>
       </div>
     </modal>
@@ -59,6 +60,12 @@ export default {
   margin: 30px auto;
   padding: 30px;
   width: 800px;
+}
+
+.basic-modal.modal-content-leave-active {
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 .title {

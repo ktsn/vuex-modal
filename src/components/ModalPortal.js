@@ -3,6 +3,7 @@
 import Backdrop from './Backdrop'
 import ModalContent from './ModalContent'
 import { addDocumentClass, removeDocumentClass } from '../dom'
+import { wait, noop } from '../utils'
 
 const openClassBody = 'modal-open'
 
@@ -10,13 +11,22 @@ export default {
   name: 'modal-portal',
 
   methods: {
-    update (name: string, current: string, props: any, children: any) {
+    update (name: string, current: string, props: any, children: any[]) {
+      // Inject key into children vnode
+      children.forEach(child => {
+        if (child.key) return
+
+        if (!child.data) {
+          child.data = {}
+        }
+        child.key = child.data.key = name
+      })
+
       this._current = current
-      this._modals[name] = createModalVNode(
-        this.$createElement,
-        { props },
+      this._modals[name] = {
+        props,
         children
-      )
+      }
 
       this.scheduleUpdate()
     },
@@ -42,13 +52,34 @@ export default {
   },
 
   render (h: Function) {
-    if (this._current == null) {
-      removeDocumentClass(openClassBody)
-    } else {
+    if (this._current != null) {
       addDocumentClass(openClassBody)
     }
 
-    return this._modals[this._current] || createModalVNode(h, {}, [])
+    const modal = this._modals[this._current]
+
+    if (modal) {
+      return createModalVNode(
+        h,
+        {
+          props: modal.props,
+          // It is required to provide noop as leave hook
+          // because previous leave hook may parsist.
+          on: { leave: noop }
+        },
+        modal.children
+      )
+    } else {
+      const numTransition = 2
+
+      // Wait until all transition element are leaved
+      // and remove the class from document element after that.
+      const onAfterLeave = wait(numTransition, () => {
+        removeDocumentClass(openClassBody)
+      })
+
+      return createModalVNode(h, { on: { leave: onAfterLeave }}, [])
+    }
   }
 }
 
