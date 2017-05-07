@@ -12,9 +12,9 @@ export default {
     const { show, contentTransition } = props
     const child = ensureOnlyChild(children)
 
-    if (child == null) return
-
-    addStaticClass(child.data, 'modal-content')
+    if (child) {
+      addStaticClass(child.data, 'modal-content')
+    }
 
     return (
       h('div', { staticClass: 'modal-content-wrapper' }, [
