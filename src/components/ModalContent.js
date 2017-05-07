@@ -2,6 +2,7 @@ import { addStaticClass, assert } from '../utils'
 
 export default {
   functional: true,
+  name: 'modal-content',
 
   props: {
     show: Boolean,

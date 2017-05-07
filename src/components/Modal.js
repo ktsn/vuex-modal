@@ -5,6 +5,8 @@ import { appendToBody } from '../dom'
 const portal = new Vue(ModalPortal).$mount()
 
 export default {
+  name: 'modal',
+
   props: {
     name: {
       type: String,

@@ -5,6 +5,8 @@ import { addDocumentClass, removeDocumentClass } from '../dom'
 const openClassBody = 'modal-open'
 
 export default {
+  name: 'modal-portal',
+
   methods: {
     update (name, current, props, children) {
       this._current = current
