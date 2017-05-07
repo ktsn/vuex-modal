@@ -1,3 +1,5 @@
+// @flow
+
 import { addStaticClass, assert } from '../utils'
 
 export default {
@@ -9,7 +11,7 @@ export default {
     contentTransition: Object
   },
 
-  render (h, { props, children }) {
+  render (h: Function, { props, children }: any) {
     const { show, contentTransition } = props
     const child = ensureOnlyChild(children)
 

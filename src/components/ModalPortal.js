@@ -1,3 +1,5 @@
+// @flow
+
 import Backdrop from './Backdrop'
 import ModalContent from './ModalContent'
 import { addDocumentClass, removeDocumentClass } from '../dom'
@@ -8,7 +10,7 @@ export default {
   name: 'modal-portal',
 
   methods: {
-    update (name, current, props, children) {
+    update (name: string, current: string, props: any, children: any) {
       this._current = current
       this._modals[name] = createModalVNode(
         this.$createElement,
@@ -29,7 +31,7 @@ export default {
       })
     },
 
-    unregister (name) {
+    unregister (name: string) {
       this._modals[name] = undefined
     }
   },
@@ -39,7 +41,7 @@ export default {
     this._modals = {}
   },
 
-  render (h) {
+  render (h: Function) {
     if (this._current == null) {
       removeDocumentClass(openClassBody)
     } else {
@@ -50,7 +52,7 @@ export default {
   }
 }
 
-function createModalVNode (h, data, children) {
+function createModalVNode (h: Function, data: any, children: any[]) {
   return (
     h('div', { staticClass: 'modal-wrapper' }, [
       h(Backdrop, data),

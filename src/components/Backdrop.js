@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   functional: true,
   name: 'backdrop',
@@ -7,7 +9,7 @@ export default {
     backdropTransition: Object
   },
 
-  render (h, { props }) {
+  render (h: Function, { props }: any) {
     const { show, backdropTransition } = props
 
     return h('transition', { props: backdropTransition }, [

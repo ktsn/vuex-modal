@@ -1,3 +1,5 @@
+// @flow
+
 import Vue from 'vue'
 import ModalPortal from './ModalPortal'
 import { appendToBody } from '../dom'
