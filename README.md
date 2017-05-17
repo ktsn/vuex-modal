@@ -77,6 +77,19 @@ $ yarn add vuex-modal
   </script>
   ```
 
+## Development for Docker
+
+```bash
+docker run \
+  -it \
+  --rm \
+  -v `pwd`/:/vuex-modal \
+  -w /vuex-modal \
+  -p 8080:8080 \
+  node:boron \
+  /bin/bash
+```
+
 ## License
 
 MIT
