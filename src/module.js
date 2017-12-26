@@ -3,6 +3,7 @@
 export const PUSH = 'modal/PUSH'
 export const POP = 'modal/POP'
 export const REPLACE = 'modal/REPLACE'
+export const CLEAR = 'modal/CLEAR'
 
 interface ModalData {
   name: string;
@@ -36,6 +37,10 @@ export default {
 
     [REPLACE] ({ commit }: Ctx, data: ModalData) {
       commit(REPLACE, data)
+    },
+
+    [CLEAR] ({ commit }: Ctx) {
+      commit(CLEAR)
     }
   },
 
@@ -51,6 +56,10 @@ export default {
     [REPLACE] ({ stack }: ModalState, data: ModalData): void {
       stack.pop()
       stack.push(data)
+    },
+
+    [CLEAR] (state): void {
+      state.stack = []
     }
   }
 }
