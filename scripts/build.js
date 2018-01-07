@@ -15,7 +15,7 @@ const banner = `/*!
  * ${meta.homepage}/blob/master/LICENSE
  */`
 
-const moduleName = 'VuexModal'
+const name = 'VuexModal'
 
 const globals = {
   vue: 'Vue',
@@ -23,7 +23,7 @@ const globals = {
 }
 
 const config = {
-  entry: 'src/index.js',
+  input: 'src/index.js',
   plugins: [
     nodeResolve(),
     babel({
@@ -61,7 +61,7 @@ rollup(config)
   .then(bundle => write(bundle, `dist/${meta.name}.js`, {
     format: 'umd',
     banner,
-    moduleName,
+    name,
     globals
   }))
   .then(() => rollup(addPlugins(config, [
@@ -83,7 +83,7 @@ rollup(config)
   .then(bundle => write(bundle, `dist/${meta.name}.min.js`, {
     format: 'umd',
     banner,
-    moduleName,
+    name,
     globals
   }))
   .catch(error => {
@@ -106,14 +106,14 @@ function mkdirIfNotExists(dirPath) {
 }
 
 function write(bundle, dest, config) {
-  const code = bundle.generate(config).code
-  return new Promise((resolve, reject) => {
-    fs.writeFile(dest, code, error => {
-      if (error) return reject(error)
-      console.log(green(dest) + ' ' + size(code))
-      resolve()
-    })
-  })
+  return bundle.generate(config)
+    .then(({ code }) => new Promise((resolve, reject) => {
+      fs.writeFile(dest, code, error => {
+        if (error) return reject(error)
+        console.log(green(dest) + ' ' + size(code))
+        resolve()
+      })
+    }))
 }
 
 function green(str) {
