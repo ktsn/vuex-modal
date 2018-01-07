@@ -2,6 +2,7 @@ const fs = require('fs')
 const rollup = require('rollup').rollup
 const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
+const nodeResolve = require('rollup-plugin-node-resolve')
 const uglify = require('rollup-plugin-uglify')
 const meta = require('../package.json')
 
@@ -24,6 +25,7 @@ const globals = {
 const config = {
   entry: 'src/index.js',
   plugins: [
+    nodeResolve(),
     babel({
       exclude: 'node_modules/**'
     })
@@ -34,7 +36,7 @@ const config = {
 mkdirIfNotExists('dist')
 
 // Styles
-fs.writeFileSync('dist/vuex-modal.css', fs.readFileSync('src/style.css'))
+fs.writeFileSync('dist/vuex-modal.css', fs.readFileSync('node_modules/vue-thin-modal/dist/vue-thin-modal.css'))
 
 // Scripts
 rollup(config)
@@ -79,6 +81,7 @@ rollup(config)
   }))
   .catch(error => {
     console.error(error)
+    process.exit(1)
   })
 
 function addPlugins(config, plugins) {

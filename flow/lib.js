@@ -8,6 +8,10 @@ declare module vuex {
   declare var exports: any;
 }
 
+declare module 'vue-thin-modal' {
+  declare var exports: any;
+}
+
 interface ActionContext<S> {
   state: S;
   getters: any;

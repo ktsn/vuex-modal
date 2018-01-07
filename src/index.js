@@ -1,10 +1,15 @@
 // @flow
 
+import Vue from 'vue'
+import { generateModal, generateMediator } from 'vue-thin-modal'
+import { generateModule } from './module'
+
 export {
   PUSH,
   POP,
-  REPLACE,
-  default as modalModule
+  REPLACE
 } from './module'
 
-export { default as Modal } from './components/Modal'
+const mediator = generateMediator(Vue)
+export const Modal = generateModal(Vue, mediator)
+export const modalModule = generateModule(mediator)

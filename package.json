@@ -51,6 +51,7 @@
     "power-assert": "^1.4.2",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^1.0.2",
     "rollup-watch": "^3.2.2",
@@ -65,5 +66,8 @@
   "peerDependencies": {
     "vue": "^2.0.0",
     "vuex": "^2.0.0"
+  },
+  "dependencies": {
+    "vue-thin-modal": "^0.2.5"
   }
 }
