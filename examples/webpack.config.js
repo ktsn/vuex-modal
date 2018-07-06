@@ -1,8 +1,10 @@
 const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const examplesDir = path.resolve(__dirname, '../examples')
 
 module.exports = {
+  mode: 'development',
   context: examplesDir,
   entry: createEntry(['basic']),
   output: {
@@ -43,6 +45,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new VueLoaderPlugin
+  ],
   devtool: 'source-map',
   devServer: {
     contentBase: examplesDir
