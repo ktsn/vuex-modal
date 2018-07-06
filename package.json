@@ -68,6 +68,6 @@
     "vuex": "^2.0.0"
   },
   "dependencies": {
-    "vue-thin-modal": "^0.2.5"
+    "vue-thin-modal": "^1.0.0"
   }
 }
