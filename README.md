@@ -77,6 +77,10 @@ $ yarn add vuex-modal
   </script>
   ```
 
+## See Also
+
+[vue-thin-modal](https://github.com/ktsn/vue-thin-modal)
+
 ## License
 
 MIT
